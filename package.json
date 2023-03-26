@@ -5,7 +5,7 @@
 	"main": "./bin/www",
 	"scripts": {
 		"start": "node ./bin/www",
-		"dev": "nodemon .",
+		"dev": "nodemon ./bin/www",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
@@ -15,7 +15,6 @@
 		"dotenv": "^16.0.3",
 		"express": "~4.16.1",
 		"mariadb": "^3.1.1",
-		"module-alias": "^2.2.2",
 		"morgan": "~1.9.1",
 		"mysql2": "^3.2.0",
 		"sequelize": "^6.30.0"
@@ -24,8 +23,5 @@
 		"eslint": "^8.36.0",
 		"nodemon": "^2.0.22",
 		"prettier": "^2.8.7"
-	},
-	"_moduleAliases": {
-		"@/": "."
 	}
 }
