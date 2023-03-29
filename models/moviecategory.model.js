@@ -8,7 +8,7 @@ const MovieCategory = sequelize.define('moviecategory', {
 
 });
 
-ccount.belongsTo(Category, {
+MovieCategory.belongsTo(Category, {
 	foreignKey: 'categoryid',
 });
 
