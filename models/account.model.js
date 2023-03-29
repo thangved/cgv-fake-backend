@@ -12,7 +12,6 @@ const Account = sequelize.define('account', {
 
 Account.belongsTo(Gender, {
 	foreignKey: 'genderId',
-	as: 'gender',
 });
 
 module.exports = Account;
