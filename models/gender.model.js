@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../services/sequelize.service');
+const sequelize = require('@/services/sequelize.service');
 
-const Gender = sequelize.define('gender', {
+const Gender = sequelize.define('genders', {
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,

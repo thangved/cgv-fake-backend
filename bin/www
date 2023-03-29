@@ -3,11 +3,12 @@
 /**
  * Module dependencies.
  */
+require('module-alias/register');
 require('dotenv').config();
 const app = require('../app');
 const debug = require('debug')('cgv-fake-backend:server');
 const http = require('http');
-const sequelize = require('../services/sequelize.service');
+const sequelize = require('@/services/sequelize.service');
 
 /**
  * Get port from environment and store in Express.
