@@ -1,14 +1,17 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../services/sequelize.service');
 
-const Invoice = require('./account.model');
+const Invoice = require('./invoice.model');
+const Ticket = require('./ticket.model');
 
 const InvoiceDetail = sequelize.define('invoicedetail', {
-	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 });
 
 InvoiceDetail.belongsTo(Invoice, {
-	foreignKey: 'InvoiceId',
+	foreignKey: 'invoiceId',
+});
+InvoiceDetail.belongsTo(Ticket, {
+	foreignKey: 'ticketId',
 });
 
 module.exports = InvoiceDetail;
