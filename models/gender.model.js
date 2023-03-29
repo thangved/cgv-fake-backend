@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('@/services/sequelize.service');
+const sequelize = require('../services/sequelize.service');
 
 const Gender = sequelize.define('genders', {
 	id: {
