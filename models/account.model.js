@@ -7,7 +7,7 @@ const Account = sequelize.define('accounts', {
 	fullName: { type: DataTypes.STRING },
 	avatar: { type: DataTypes.STRING },
 	dateOfBirth: { type: DataTypes.DATEONLY },
-	email: { type: DataTypes.STRING },
+	email: { type: DataTypes.STRING, unique: true },
 	admin: { type: DataTypes.BOOLEAN, defaultValue: false },
 	password: { type: DataTypes.STRING, allowNull: false },
 });

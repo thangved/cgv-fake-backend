@@ -1,8 +1,24 @@
 const ApiError = require('@/api-error');
 const Account = require('@/models/account.model');
 const Gender = require('@/models/gender.model');
+const password = require('@/utils/password.util');
 
 class AccountController {
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async create(req, res, next) {
+		try {
+			const newAccount = await Account.create({
+				...req.body,
+				password: await password.hash(req.body.password),
+			});
+
+			res.status(201).send(newAccount.dataValues);
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
@@ -29,6 +45,9 @@ class AccountController {
 			const account = await Account.findOne({
 				where: {
 					id: req.params.id,
+				},
+				attributes: {
+					exclude: ['password'],
 				},
 			});
 
@@ -60,6 +79,8 @@ class AccountController {
 					id: req.params.id,
 				},
 			});
+
+			res.end();
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -70,13 +91,16 @@ class AccountController {
 	 */
 	async deleteById(req, res, next) {
 		try {
-			await Account.destroy(req.body, {
+			await Account.destroy({
 				where: {
 					id: req.params.id,
 					admin: false,
 				},
 			});
+
+			res.end();
 		} catch (error) {
+			console.log(error);
 			next(new ApiError());
 		}
 	}

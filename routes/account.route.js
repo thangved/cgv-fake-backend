@@ -3,7 +3,7 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.route('/').get(accountController.getAll);
+router.route('/').get(accountController.getAll).post(accountController.create);
 
 router
 	.route('/:id')
