@@ -5,7 +5,7 @@ const { app } = require('@/firebase');
 const Account = require('@/models/account.model');
 const jwt = require('@/utils/jwt.utils');
 
-async function createNewUser(payload) {
+async function createNewAccount(payload) {
 	const newUser = await Account.create(payload);
 
 	return newUser.dataValues;
@@ -37,7 +37,7 @@ class AuthController {
 			)?.dataValues;
 
 			if (!existingUser) {
-				existingUser = await createNewUser({
+				existingUser = await createNewAccount({
 					fullName: result.name,
 					avatar: result.picture,
 					email: result.email,
@@ -56,6 +56,27 @@ class AuthController {
 	async auth(req, res, next) {
 		try {
 			res.send(req.currentUser);
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
+
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async update(req, res, next) {
+		try {
+			const body = req.body;
+			delete body.id;
+			delete body.email;
+
+			await Account.update(body, {
+				where: {
+					id: req.currentUser.id,
+				},
+			});
+
+			res.send({ message: 'Cập nhật tài khoản thành công' });
 		} catch (error) {
 			next(new ApiError());
 		}

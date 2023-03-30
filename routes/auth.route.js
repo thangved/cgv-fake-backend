@@ -4,7 +4,11 @@ const { Router } = require('express');
 
 const router = Router();
 
-router.route('/').get(authMiddleware, authController.auth);
+router
+	.route('/')
+	.get(authMiddleware, authController.auth)
+	.put(authMiddleware, authController.update);
+
 router.route('/login').post(authController.login);
 
 module.exports = router;
