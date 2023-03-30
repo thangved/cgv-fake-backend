@@ -2,7 +2,7 @@ const sequelize = require('@/services/sequelize.service');
 const { DataTypes } = require('sequelize');
 const Gender = require('./gender.model');
 
-const Account = sequelize.define('accounts', {
+const Account = sequelize.define('account', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	fullName: { type: DataTypes.STRING },
 	avatar: { type: DataTypes.STRING },

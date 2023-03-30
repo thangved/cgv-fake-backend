@@ -13,5 +13,6 @@ router.use(
 );
 
 router.use('/genders', require('./gender.route'));
+router.use('/banners', require('./banner.route'));
 
 module.exports = router;
