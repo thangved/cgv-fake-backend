@@ -1,11 +1,9 @@
-const { DataTypes } = require('sequelize');
 const sequelize = require('../services/sequelize.service');
 
 const Cinema = require('./cinema.model');
 const Account = require('./account.model');
 
-const Manager = sequelize.define('manager', {
-});
+const Manager = sequelize.define('manager', {});
 
 Manager.belongsTo(Cinema, {
 	foreignKey: 'cinemaId',

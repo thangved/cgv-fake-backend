@@ -5,9 +5,9 @@ const Show = require('./show.model');
 const SeatRow = require('./seatrow.model');
 
 const Ticket = sequelize.define('ticket', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    chairId:{ type: DataTypes.INTEGER},
-    price: { type: DataTypes.BIGINT},
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	chairId: { type: DataTypes.INTEGER },
+	price: { type: DataTypes.BIGINT },
 });
 
 Ticket.belongsTo(Show, {

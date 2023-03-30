@@ -7,7 +7,7 @@ const Room = require('./room.model');
 const SeatRow = sequelize.define('seatrow', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	label: { type: DataTypes.STRING },
-    quantity: { type: DataTypes.INTEGER },
+	quantity: { type: DataTypes.INTEGER },
 });
 
 SeatRow.belongsTo(SeatType, {
