@@ -9,6 +9,7 @@ const Account = sequelize.define('accounts', {
 	dateOfBirth: { type: DataTypes.DATEONLY },
 	email: { type: DataTypes.STRING },
 	admin: { type: DataTypes.BOOLEAN, defaultValue: false },
+	password: { type: DataTypes.STRING, allowNull: false },
 });
 
 Account.belongsTo(Gender, {

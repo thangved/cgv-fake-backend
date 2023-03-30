@@ -42,6 +42,8 @@ async function authMiddleware(req, res, next) {
 			);
 		}
 
+		delete currentUser.password;
+
 		req.currentUser = currentUser;
 
 		next();
