@@ -1,7 +1,7 @@
 const adminMiddleware = require('@/middleware/admin.middleware');
 const authMiddleware = require('@/middleware/auth.middleware');
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.use('/auth', require('./auth.route'));
 
