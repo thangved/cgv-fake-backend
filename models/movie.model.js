@@ -4,6 +4,7 @@ const { default: slugify } = require('slugify');
 const Category = require('./category.model');
 const Country = require('./country.model');
 const MovieCategory = require('./moviecategory.model');
+const MovieCountry = require('./moviecountry.model');
 
 const Movie = sequelize.define('movie', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -20,8 +21,8 @@ const Movie = sequelize.define('movie', {
 	showAt: { type: DataTypes.DATEONLY, allowNull: false },
 });
 
-Movie.belongsTo(Country, {
-	foreignKey: 'countryId',
+Movie.belongsToMany(Country, {
+	through: MovieCountry,
 });
 
 Movie.belongsToMany(Category, {

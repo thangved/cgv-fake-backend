@@ -3,6 +3,7 @@ const Category = require('@/models/category.model');
 const Country = require('@/models/country.model');
 const Movie = require('@/models/movie.model');
 const MovieCategory = require('@/models/moviecategory.model');
+const MovieCountry = require('@/models/moviecountry.model');
 const sequelize = require('@/services/sequelize.service');
 const { Op } = require('sequelize');
 
@@ -16,12 +17,23 @@ class MovieController {
 			const newMovie = await Movie.create(req.body, { transaction: t });
 
 			const categories = req.body.categories;
+			const countries = req.body.countries;
 
 			for (const category of categories) {
 				await MovieCategory.create(
 					{
 						movieId: newMovie.dataValues.id,
 						categoryId: category,
+					},
+					{ transaction: t }
+				);
+			}
+
+			for (const country of countries) {
+				await MovieCountry.create(
+					{
+						movieId: newMovie.dataValues.id,
+						countryId: country,
 					},
 					{ transaction: t }
 				);
@@ -80,6 +92,7 @@ class MovieController {
 			delete req.body.id;
 
 			const categories = req.body.categories;
+			const countries = req.body.countries;
 
 			if (categories) {
 				MovieCategory.destroy({
@@ -91,6 +104,22 @@ class MovieController {
 						{
 							movieId: req.params.id,
 							categoryId: category,
+						},
+						{ transaction: t }
+					);
+				}
+			}
+
+			if (countries) {
+				MovieCountry.destroy({
+					where: { movieId: req.params.id },
+					transaction: t,
+				});
+				for (const country of countries) {
+					await MovieCountry.create(
+						{
+							movieId: req.params.id,
+							countryId: country,
 						},
 						{ transaction: t }
 					);
