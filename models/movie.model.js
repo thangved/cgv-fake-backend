@@ -18,12 +18,12 @@ const Movie = sequelize.define('movie', {
 });
 
 Movie.belongsTo(MovieCategory, {
-	foreignKey: 'id',
+	foreignKey: 'Id',
 });
 
 Movie.belongsTo(Country),
 	{
-		foreignKey: 'countryid',
+		foreignKey: 'countryId',
 	};
 
 module.exports = Movie;
