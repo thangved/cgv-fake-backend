@@ -1,8 +1,24 @@
 const ApiError = require('@/api-error');
 const Account = require('@/models/account.model');
 const Gender = require('@/models/gender.model');
+const password = require('@/utils/password.util');
 
 class AccountController {
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async create(req, res, next) {
+		try {
+			const newAccount = await Account.create({
+				...req.body,
+				password: await password.hash(req.body.password),
+			});
+
+			res.status(201).send(newAccount.dataValues);
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
@@ -10,6 +26,9 @@ class AccountController {
 		try {
 			const accounts = await Account.findAll({
 				include: [{ model: Gender }],
+				attributes: {
+					exclude: ['password'],
+				},
 			});
 
 			res.send(accounts);
@@ -17,8 +36,7 @@ class AccountController {
 			next(new ApiError());
 		}
 	}
-<<<<<<< Updated upstream
-=======
+
 
 	/**
 	 * @type {import('express').RequestHandler}
@@ -101,7 +119,6 @@ class AccountController {
 			next(new ApiError());
 		}
 	}
->>>>>>> Stashed changes
 }
 
 module.exports = new AccountController();

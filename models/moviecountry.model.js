@@ -1,9 +1,9 @@
 const sequelize = require('@/services/sequelize.service');
 
-const MovieCategory = sequelize.define(
-	'moviecategory',
+const MovieCountry = sequelize.define(
+	'moviecountry',
 	{},
 	{ timestamps: false }
 );
 
-module.exports = MovieCategory;
+module.exports = MovieCountry;
