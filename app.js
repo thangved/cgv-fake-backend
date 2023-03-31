@@ -4,6 +4,7 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const indexRouter = require('./routes/index');
+const { queryParser } = require('express-query-parser');
 
 const app = express();
 
@@ -12,6 +13,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(
+	queryParser({
+		parseNull: true,
+		parseUndefined: true,
+		parseBoolean: true,
+		parseNumber: true,
+	})
+);
 
 app.use('/api', indexRouter);
 
