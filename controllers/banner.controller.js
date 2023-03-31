@@ -27,6 +27,18 @@ class BannerController {
 			next(new ApiError());
 		}
 	}
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async getAllPublic(req, res, next) {
+		try {
+			const banners = await Banner.findAll({ where: { visible: true } });
+
+			res.send(banners);
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
 
 	/**
 	 * @type {import('express').RequestHandler}

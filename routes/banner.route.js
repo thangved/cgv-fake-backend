@@ -8,7 +8,9 @@ const router = Router();
 router
 	.route('/')
 	.post(authMiddleware, adminMiddleware, bannerController.create)
-	.get(bannerController.getAll);
+	.get(authMiddleware, adminMiddleware, bannerController.getAll);
+
+router.route('/public').get(bannerController.getAllPublic);
 
 router
 	.route('/:id')
