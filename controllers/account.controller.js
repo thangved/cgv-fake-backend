@@ -91,6 +91,19 @@ class AccountController {
 	 */
 	async deleteById(req, res, next) {
 		try {
+			const isAdmin = await Account.findOne({
+				where: { id: req.params.id, admin: true },
+			});
+
+			if (isAdmin) {
+				return next(
+					new ApiError({
+						statusCode: 403,
+						message: 'Không thể xóa tài khoản quản trị',
+					})
+				);
+			}
+
 			await Account.destroy({
 				where: {
 					id: req.params.id,

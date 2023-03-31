@@ -1,12 +1,11 @@
 const sequelize = require('@/services/sequelize.service');
 const { DataTypes } = require('sequelize');
-const MovieCategory = require('./moviecategory.model');
 const Country = require('./country.model');
 
 const Movie = sequelize.define('movie', {
 	title: { type: DataTypes.STRING },
 	brief: { type: DataTypes.STRING },
-	slug: { type: DataTypes.STRING },
+	slug: { type: DataTypes.STRING, unique: true },
 	studio: { type: DataTypes.STRING },
 	director: { type: DataTypes.STRING },
 	verPoster: { type: DataTypes.STRING },
@@ -17,13 +16,8 @@ const Movie = sequelize.define('movie', {
 	showAt: { type: DataTypes.DATEONLY },
 });
 
-Movie.belongsTo(MovieCategory, {
-	foreignKey: 'id',
+Movie.belongsTo(Country, {
+	foreignKey: 'countryid',
 });
-
-Movie.belongsTo(Country),
-	{
-		foreignKey: 'countryid',
-	};
 
 module.exports = Movie;
