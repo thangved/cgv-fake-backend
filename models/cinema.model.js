@@ -9,7 +9,7 @@ const Cinema = sequelize.define('cinema', {
 });
 
 Province.belongsTo(Province, {
-	foreignKey: 'provinceid',
+	foreignKey: 'provinceId',
 });
 
 module.exports = Cinema;
