@@ -113,7 +113,6 @@ class AccountController {
 
 			res.end();
 		} catch (error) {
-			console.log(error);
 			next(new ApiError());
 		}
 	}

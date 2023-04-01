@@ -89,7 +89,6 @@ class AuthController {
 				accessToken: jwt.encode(newAccount.dataValues),
 			});
 		} catch (error) {
-			console.log(error);
 			next(new ApiError());
 		}
 	}
@@ -123,7 +122,6 @@ class AuthController {
 
 			res.send({ accessToken: jwt.encode(existingUser) });
 		} catch (error) {
-			console.log(error);
 			next(new ApiError());
 		}
 	}

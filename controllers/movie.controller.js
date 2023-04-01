@@ -60,8 +60,9 @@ class MovieController {
 			const where = {};
 
 			if (req.query.show === 'now') {
-				where.showAt = {
-					[Op.lte]: new Date(),
+				where[Op.and] = {
+					showAt: { [Op.lte]: new Date() },
+					showTo: { [Op.gte]: new Date() },
 				};
 			}
 
@@ -78,7 +79,6 @@ class MovieController {
 
 			res.send(movie);
 		} catch (error) {
-			console.log(error);
 			next(new ApiError());
 		}
 	}
@@ -183,7 +183,6 @@ class MovieController {
 
 			res.send(movie.dataValues);
 		} catch (error) {
-			console.log(error);
 			next(new ApiError());
 		}
 	}
