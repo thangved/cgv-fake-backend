@@ -1,16 +1,15 @@
 const ApiError = require('@/api-error');
-const Cinema = require('@/models/cinema.model');
-const Province = require('@/models/province.model');
+const Language = require('@/model/language.model');
 
-class CinemaController {
+class LanguageController {
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
 	async create(req, res, next) {
 		try {
-			const newCinema = await Cinema.create(req.body);
+			const newLanguage = await Language.create(req.body);
 
-			res.send(newCinema.dataValues);
+			res.send(newLanguage.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -21,11 +20,9 @@ class CinemaController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const cinemas = await Cinema.findAll({
-                include: [{ model: Province }],
-            });
+			const languages = await Language.findAll();
 
-			res.send(cinemas);
+			res.send(languages);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -38,7 +35,7 @@ class CinemaController {
 		try {
 			delete req.body.id;
 
-			await Cinema.update(req.body, {
+			await Language.update(req.body, {
 				where: {
 					id: req.params.id,
 				},
@@ -54,7 +51,7 @@ class CinemaController {
 	 */
 	async delete(req, res, next) {
 		try {
-			await Cinema.destroy({
+			await Language.destroy({
 				where: {
 					id: req.params.id,
 				},
@@ -69,16 +66,15 @@ class CinemaController {
 	 */
 	async getById(req, res, next) {
 		try {
-			const cinema = await Cinema.findOne({
-                include: [{ model: Province }],
+			const language = await Language.findOne({
 				where: { id: req.params.id },
 			});
 
-			res.send(cinema.dataValues);
+			res.send(language.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
 	}
 }
 
-module.exports = new CinemaController();
+module.exports = new LanguageController();

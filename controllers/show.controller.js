@@ -1,16 +1,18 @@
 const ApiError = require('@/api-error');
-const Cinema = require('@/models/cinema.model');
-const Province = require('@/models/province.model');
+const Language = require('@/models/language.model');
+const Movie = require('@/models/movie.model');
+const Room = require('@/models/room.model');
+const Show = require('@/models/show.model');
 
-class CinemaController {
+class ShowController {
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
 	async create(req, res, next) {
 		try {
-			const newCinema = await Cinema.create(req.body);
+			const newShow = await Show.create(req.body);
 
-			res.send(newCinema.dataValues);
+			res.send(newShow.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -21,11 +23,13 @@ class CinemaController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const cinemas = await Cinema.findAll({
-                include: [{ model: Province }],
+			const shows = await Show.findAll({
+                include: [{ model: Language }],
+                include: [{ model: Room }],
+                include: [{ model: Movie }],
             });
 
-			res.send(cinemas);
+			res.send(shows);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -38,7 +42,7 @@ class CinemaController {
 		try {
 			delete req.body.id;
 
-			await Cinema.update(req.body, {
+			await Show.update(req.body, {
 				where: {
 					id: req.params.id,
 				},
@@ -54,7 +58,7 @@ class CinemaController {
 	 */
 	async delete(req, res, next) {
 		try {
-			await Cinema.destroy({
+			await Show.destroy({
 				where: {
 					id: req.params.id,
 				},
@@ -69,16 +73,18 @@ class CinemaController {
 	 */
 	async getById(req, res, next) {
 		try {
-			const cinema = await Cinema.findOne({
-                include: [{ model: Province }],
+			const show = await Show.findOne({
+                include: [{ model: Language }],
+                include: [{ model: Room }],
+                include: [{ model: Movie }],
 				where: { id: req.params.id },
 			});
 
-			res.send(cinema.dataValues);
+			res.send(show.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
 	}
 }
 
-module.exports = new CinemaController();
+module.exports = new ShowController();

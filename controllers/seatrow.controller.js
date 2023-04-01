@@ -1,16 +1,17 @@
 const ApiError = require('@/api-error');
-const Cinema = require('@/models/cinema.model');
-const Province = require('@/models/province.model');
+const Seatrow = require('@/models/seatrow.model');
+const Seattype = require('@/models/seattype.model');
+const Room = require('@/models/room.model');
 
-class CinemaController {
+class SeatrowController {
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
 	async create(req, res, next) {
 		try {
-			const newCinema = await Cinema.create(req.body);
+			const newSeatrow = await Seatrow.create(req.body);
 
-			res.send(newCinema.dataValues);
+			res.send(newSeatrow.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -21,11 +22,12 @@ class CinemaController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const cinemas = await Cinema.findAll({
-                include: [{ model: Province }],
+			const seatrows = await Seatrow.findAll({
+                include: [{ model: Room }],
+                include: [{ model: Seattype }],
             });
 
-			res.send(cinemas);
+			res.send(seatrows);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -38,7 +40,7 @@ class CinemaController {
 		try {
 			delete req.body.id;
 
-			await Cinema.update(req.body, {
+			await Seatrow.update(req.body, {
 				where: {
 					id: req.params.id,
 				},
@@ -54,7 +56,7 @@ class CinemaController {
 	 */
 	async delete(req, res, next) {
 		try {
-			await Cinema.destroy({
+			await Seatrow.destroy({
 				where: {
 					id: req.params.id,
 				},
@@ -69,16 +71,17 @@ class CinemaController {
 	 */
 	async getById(req, res, next) {
 		try {
-			const cinema = await Cinema.findOne({
-                include: [{ model: Province }],
+			const seatrow = await Seatrow.findOne({
+                include: [{ model: Room }],
+                include: [{ model: Seattype }],
 				where: { id: req.params.id },
 			});
 
-			res.send(cinema.dataValues);
+			res.send(seatrow.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
 	}
 }
 
-module.exports = new CinemaController();
+module.exports = new SeatrowController();
