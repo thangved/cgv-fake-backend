@@ -1,6 +1,6 @@
 const sequelize = require('@/services/sequelize.service');
 const { DataTypes } = require('sequelize');
-const { default: slugify } = require('slugify');
+const slugify = require('slugify');
 const Category = require('./category.model');
 const Country = require('./country.model');
 const MovieCategory = require('./moviecategory.model');
@@ -19,6 +19,7 @@ const Movie = sequelize.define('movie', {
 	minutes: { type: DataTypes.INTEGER, allowNull: false },
 	content: { type: DataTypes.TEXT, allowNull: false },
 	showAt: { type: DataTypes.DATEONLY, allowNull: false },
+	showTo: { type: DataTypes.DATEONLY, allowNull: false },
 });
 
 Movie.belongsToMany(Country, {
