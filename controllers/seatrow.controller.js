@@ -23,9 +23,9 @@ class SeatrowController {
 	async getAll(req, res, next) {
 		try {
 			const seatrows = await Seatrow.findAll({
-                include: [{ model: Room }],
-                include: [{ model: Seattype }],
-            });
+				include: [{ model: Room }],
+				include: [{ model: Seattype }],
+			});
 
 			res.send(seatrows);
 		} catch (error) {
@@ -72,8 +72,8 @@ class SeatrowController {
 	async getById(req, res, next) {
 		try {
 			const seatrow = await Seatrow.findOne({
-                include: [{ model: Room }],
-                include: [{ model: Seattype }],
+				include: [{ model: Room }],
+				include: [{ model: Seattype }],
 				where: { id: req.params.id },
 			});
 

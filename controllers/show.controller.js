@@ -24,10 +24,10 @@ class ShowController {
 	async getAll(req, res, next) {
 		try {
 			const shows = await Show.findAll({
-                include: [{ model: Language }],
-                include: [{ model: Room }],
-                include: [{ model: Movie }],
-            });
+				include: [{ model: Language }],
+				include: [{ model: Room }],
+				include: [{ model: Movie }],
+			});
 
 			res.send(shows);
 		} catch (error) {
@@ -74,9 +74,9 @@ class ShowController {
 	async getById(req, res, next) {
 		try {
 			const show = await Show.findOne({
-                include: [{ model: Language }],
-                include: [{ model: Room }],
-                include: [{ model: Movie }],
+				include: [{ model: Language }],
+				include: [{ model: Room }],
+				include: [{ model: Movie }],
 				where: { id: req.params.id },
 			});
 

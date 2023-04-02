@@ -4,7 +4,6 @@ const Language = require('./language.model');
 const Room = require('./room.model');
 const Movie = require('./movie.model');
 
-
 const Show = sequelize.define('show', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	startAt: { type: DataTypes.DATE },

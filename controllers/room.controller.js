@@ -22,8 +22,8 @@ class RoomController {
 	async getAll(req, res, next) {
 		try {
 			const rooms = await Room.findAll({
-                include: [{ model: Cinema }],
-            });
+				include: [{ model: Cinema }],
+			});
 
 			res.send(rooms);
 		} catch (error) {
@@ -70,7 +70,7 @@ class RoomController {
 	async getById(req, res, next) {
 		try {
 			const room = await Room.findOne({
-                include: [{ model: Cinema }],
+				include: [{ model: Cinema }],
 				where: { id: req.params.id },
 			});
 

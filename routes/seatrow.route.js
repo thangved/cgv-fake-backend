@@ -3,8 +3,6 @@ const adminMiddleware = require('@/middleware/admin.middleware');
 const authMiddleware = require('@/middleware/auth.middleware');
 const { Router } = require('express');
 
-
-
 const router = Router();
 
 router

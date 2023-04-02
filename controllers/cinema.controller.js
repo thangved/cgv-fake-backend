@@ -22,8 +22,8 @@ class CinemaController {
 	async getAll(req, res, next) {
 		try {
 			const cinemas = await Cinema.findAll({
-                include: [{ model: Province }],
-            });
+				include: [{ model: Province }],
+			});
 
 			res.send(cinemas);
 		} catch (error) {
@@ -70,7 +70,7 @@ class CinemaController {
 	async getById(req, res, next) {
 		try {
 			const cinema = await Cinema.findOne({
-                include: [{ model: Province }],
+				include: [{ model: Province }],
 				where: { id: req.params.id },
 			});
 
