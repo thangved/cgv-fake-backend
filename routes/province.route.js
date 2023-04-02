@@ -8,7 +8,7 @@ const router = Router();
 router
 	.route('/')
 	.post(authMiddleware, adminMiddleware, provinceController.create)
-	.get(genderController.getAll);
+	.get(provinceController.getAll);
 
 router
 	.route('/:id')

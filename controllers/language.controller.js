@@ -1,5 +1,5 @@
 const ApiError = require('@/api-error');
-const Language = require('@/model/language.model');
+const Language = require('@/models/language.model');
 
 class LanguageController {
 	/**

@@ -2,7 +2,6 @@ const sequelize = require('@/services/sequelize.service');
 const { DataTypes } = require('sequelize');
 const Language = require('./language.model');
 const Room = require('./room.model');
-const Movie = require('./movie.model');
 
 const Show = sequelize.define('show', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
@@ -10,14 +9,11 @@ const Show = sequelize.define('show', {
 	endAt: { type: DataTypes.DATE },
 });
 
-Province.belongsTo(Language, {
-	foreignKey: 'languageID',
+Show.belongsTo(Language, {
+	foreignKey: 'languageId',
 });
-Province.belongsTo(Province, {
-	foreignKey: 'roomID',
-});
-Province.belongsTo(Province, {
-	foreignKey: 'movieID',
+Show.belongsTo(Room, {
+	foreignKey: 'roomId',
 });
 
 module.exports = Show;

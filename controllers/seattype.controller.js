@@ -1,16 +1,15 @@
 const ApiError = require('@/api-error');
-const Room = require('@/models/room.model');
-const Cinema = require('@/models/cinema.model');
+const SeatType = require('@/models/seattype.model');
 
-class RoomController {
+class SeatTypeController {
 	/**
 	 * @type {import('express').RequestHandler}
 	 */
 	async create(req, res, next) {
 		try {
-			const newRoom = await Room.create(req.body);
+			const seatType = await SeatType.create(req.body);
 
-			res.send(newRoom.dataValues);
+			res.send(seatType.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -21,19 +20,9 @@ class RoomController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const cinemaId = req.query.cinemaId;
-			const where = {};
+			const seatTypes = await SeatType.findAll();
 
-			if (cinemaId) {
-				where.cinemaId = cinemaId;
-			}
-
-			const rooms = await Room.findAll({
-				include: [{ model: Cinema }],
-				where,
-			});
-
-			res.send(rooms);
+			res.send(seatTypes);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -46,7 +35,7 @@ class RoomController {
 		try {
 			delete req.body.id;
 
-			await Room.update(req.body, {
+			await SeatType.update(req.body, {
 				where: {
 					id: req.params.id,
 				},
@@ -62,7 +51,7 @@ class RoomController {
 	 */
 	async delete(req, res, next) {
 		try {
-			await Room.destroy({
+			await SeatType.destroy({
 				where: {
 					id: req.params.id,
 				},
@@ -77,16 +66,15 @@ class RoomController {
 	 */
 	async getById(req, res, next) {
 		try {
-			const room = await Room.findOne({
-				include: [{ model: Cinema }],
+			const seatType = await SeatType.findOne({
 				where: { id: req.params.id },
 			});
 
-			res.send(room.dataValues);
+			res.send(seatType.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
 	}
 }
 
-module.exports = new RoomController();
+module.exports = new SeatTypeController();
