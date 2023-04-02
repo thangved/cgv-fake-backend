@@ -43,6 +43,7 @@ class AccountController {
 	async getById(req, res, next) {
 		try {
 			const account = await Account.findOne({
+				include: [{ model: Gender }],
 				where: {
 					id: req.params.id,
 				},

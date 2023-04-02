@@ -8,7 +8,7 @@ const Cinema = sequelize.define('cinema', {
 	address: { type: DataTypes.STRING },
 });
 
-Province.belongsTo(Province, {
+Cinema.belongsTo(Province, {
 	foreignKey: 'provinceId',
 });
 

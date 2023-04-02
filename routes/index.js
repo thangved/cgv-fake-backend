@@ -17,5 +17,12 @@ router.use('/banners', require('./banner.route'));
 router.use('/countries', require('./country.route'));
 router.use('/categories', require('./category.route'));
 router.use('/movies', require('./movie.route'));
+router.use('/cinemas', require('./cinema.route'));
+router.use('/languages', require('./language.route'));
+router.use('/provinces', require('./province.route'));
+router.use('/rooms', require('./room.route'));
+router.use('/seat-rows', require('./seatrow.route'));
+router.use('/seat-types', require('./seattype.route'));
+router.use('/shows', require('./show.route'));
 
 module.exports = router;
