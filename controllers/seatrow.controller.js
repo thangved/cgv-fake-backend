@@ -1,7 +1,7 @@
 const ApiError = require('@/api-error');
 const Seatrow = require('@/models/seatrow.model');
-const Seattype = require('@/models/seattype.model');
 const Room = require('@/models/room.model');
+const SeatType = require('@/models/seattype.model');
 
 class SeatrowController {
 	/**
@@ -22,9 +22,16 @@ class SeatrowController {
 	 */
 	async getAll(req, res, next) {
 		try {
+			const roomId = req.query.roomId;
+			const where = {};
+
+			if (roomId) {
+				where.roomId = roomId;
+			}
+
 			const seatrows = await Seatrow.findAll({
-				include: [{ model: Room }],
-				include: [{ model: Seattype }],
+				include: [{ model: Room }, { model: SeatType }],
+				where,
 			});
 
 			res.send(seatrows);
@@ -72,8 +79,7 @@ class SeatrowController {
 	async getById(req, res, next) {
 		try {
 			const seatrow = await Seatrow.findOne({
-				include: [{ model: Room }],
-				include: [{ model: Seattype }],
+				include: [{ model: Room }, { model: SeatType }],
 				where: { id: req.params.id },
 			});
 

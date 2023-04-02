@@ -11,7 +11,7 @@ const SeatRow = sequelize.define('seatrow', {
 });
 
 SeatRow.belongsTo(SeatType, {
-	foreignKey: 'chairTypeId',
+	foreignKey: 'seatTypeId',
 });
 SeatRow.belongsTo(Room, {
 	foreignKey: 'roomId',
