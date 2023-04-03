@@ -60,10 +60,10 @@ class MovieController {
 			const where = {};
 
 			if (req.query.show === 'now') {
-				where[Op.and] = {
-					showAt: { [Op.lte]: new Date() },
-					showTo: { [Op.gte]: new Date() },
-				};
+				where[Op.and] = [
+					{ showAt: { [Op.lte]: new Date() } },
+					{ showTo: { [Op.gte]: new Date() } },
+				];
 			}
 
 			if (req.query.show === 'coming') {
