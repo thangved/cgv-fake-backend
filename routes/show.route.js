@@ -14,6 +14,8 @@ router
 	.route('/:id')
 	.put(authMiddleware, adminMiddleware, showController.update)
 	.delete(authMiddleware, adminMiddleware, showController.delete)
-	.get(authMiddleware, adminMiddleware, showController.getById);
+	.get(authMiddleware, showController.getById);
+
+router.route('/:id/seats').get(authMiddleware, showController.getSeats);
 
 module.exports = router;

@@ -6,7 +6,7 @@ const SeatRow = require('./seatrow.model');
 
 const Ticket = sequelize.define('ticket', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	chairId: { type: DataTypes.INTEGER },
+	seatId: { type: DataTypes.INTEGER },
 	price: { type: DataTypes.BIGINT },
 });
 

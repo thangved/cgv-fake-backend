@@ -3,6 +3,8 @@ const Cinema = require('@/models/cinema.model');
 const Language = require('@/models/language.model');
 const Movie = require('@/models/movie.model');
 const Room = require('@/models/room.model');
+const SeatRow = require('@/models/seatrow.model');
+const SeatType = require('@/models/seattype.model');
 const Show = require('@/models/show.model');
 const { startOfDay, endOfDay } = require('date-fns');
 const { Op } = require('sequelize');
@@ -238,13 +240,61 @@ class ShowController {
 			const show = await Show.findOne({
 				include: [
 					{ model: Language },
-					{ model: Room },
+					{ model: Room, include: [{ model: Cinema }] },
 					{ model: Movie },
 				],
 				where: { id: req.params.id },
 			});
 
 			res.send(show.dataValues);
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async getSeats(req, res, next) {
+		try {
+			const showDetails = await Show.findOne({
+				where: { id: req.params.id },
+			});
+
+			if (!showDetails) {
+				return next(
+					new ApiError({
+						statusCode: 404,
+						message: 'Không tìm thấy suất chiếu',
+					})
+				);
+			}
+
+			const day = new Date(showDetails.dataValues.startAt).getDay();
+
+			const rows = await SeatRow.findAll({
+				where: { roomId: showDetails.dataValues.roomId },
+				include: [{ model: SeatType }],
+			});
+
+			const seats = [];
+
+			for (const row of rows) {
+				const _seats = [];
+
+				for (let i = 1; i <= row.quantity; i++) {
+					_seats.push({ id: i, booked: false });
+				}
+
+				seats.push({
+					label: row.label,
+					type: row.seattype,
+					seats: _seats,
+					id: row.id,
+					price: row.seattype[`price${day}`],
+				});
+			}
+
+			res.send(seats);
 		} catch (error) {
 			next(new ApiError());
 		}
