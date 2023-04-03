@@ -21,8 +21,16 @@ class CinemaController {
 	 */
 	async getAll(req, res, next) {
 		try {
+			const where = {};
+			const provinceId = req.query.provinceId;
+
+			if (provinceId) {
+				where.provinceId = provinceId;
+			}
+
 			const cinemas = await Cinema.findAll({
 				include: [{ model: Province }],
+				where,
 			});
 
 			res.send(cinemas);

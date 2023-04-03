@@ -1,8 +1,10 @@
 const ApiError = require('@/api-error');
+const Cinema = require('@/models/cinema.model');
 const Language = require('@/models/language.model');
 const Movie = require('@/models/movie.model');
 const Room = require('@/models/room.model');
 const Show = require('@/models/show.model');
+const { startOfDay, endOfDay } = require('date-fns');
 const { Op } = require('sequelize');
 
 const checkConflict = async (payload) => {
@@ -75,9 +77,93 @@ class ShowController {
 		try {
 			const where = {};
 			const roomWhere = {};
-			const cinemaId = req.query.cinemaId;
-			const movieId = req.query.movieId;
-			const roomId = req.query.roomId;
+			const { roomId, cinemaId, movieId, provinceId, date } = req.query;
+
+			if (req.query.group) {
+				const result = [];
+
+				const roomWhere = {};
+				const cinemaWhere = {};
+				const dateWhere = {};
+
+				if (cinemaId) {
+					roomWhere.cinemaId = cinemaId;
+				}
+
+				if (provinceId) {
+					cinemaWhere.provinceId = provinceId;
+				}
+
+				if (date) {
+					dateWhere[Op.and] = [
+						{
+							startAt: {
+								[Op.gte]: new Date(),
+							},
+						},
+						{
+							startAt: {
+								[Op.gte]: startOfDay(new Date(date)),
+							},
+						},
+						{
+							startAt: {
+								[Op.lte]: endOfDay(new Date(date)),
+							},
+						},
+					];
+				}
+
+				const cinemas = await Show.findAll({
+					where: {
+						movieId,
+					},
+					include: [
+						{
+							model: Room,
+							where: roomWhere,
+							include: [{ model: Cinema, where: cinemaWhere }],
+						},
+					],
+					group: ['room.cinema.id'],
+				});
+
+				const langs = await Show.findAll({
+					where: { movieId },
+					group: ['languageId'],
+					include: [{ model: Language }],
+				});
+
+				for (const cine of cinemas) {
+					const cinema = cine.room.cinema;
+					for (const lang of langs) {
+						const { language } = lang;
+						const shows = await Show.findAll({
+							where: {
+								movieId,
+								languageId: language.id,
+								...dateWhere,
+							},
+							include: [
+								{
+									model: Room,
+									where: { cinemaId: cinema.id },
+								},
+							],
+						});
+
+						if (!shows.length) continue;
+
+						result.push({
+							cinema,
+							language: language,
+							shows,
+						});
+					}
+				}
+
+				return res.send(result);
+			}
 
 			if (movieId) {
 				where.movieId = movieId;
@@ -97,6 +183,7 @@ class ShowController {
 					{
 						model: Room,
 						where: roomWhere,
+						include: [{ model: Cinema }],
 					},
 					{ model: Movie },
 				],
