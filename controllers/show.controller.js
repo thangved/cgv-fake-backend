@@ -11,9 +11,17 @@ const { startOfDay, endOfDay } = require('date-fns');
 const { Op } = require('sequelize');
 
 const checkConflict = async (payload) => {
-	const { roomId, startAt, endAt } = payload;
+	const { roomId, startAt, endAt, id: showId } = payload;
 
-	return !!(await Show.findOne({
+	const option = {};
+
+	if (showId) {
+		option.id = {
+			[Op.not]: showId,
+		};
+	}
+
+	const existing = await Show.findOne({
 		where: {
 			roomId,
 			[Op.or]: [
@@ -42,8 +50,11 @@ const checkConflict = async (payload) => {
 					],
 				},
 			],
+			...option,
 		},
-	}));
+	});
+
+	return !!existing;
 };
 
 class ShowController {
@@ -206,6 +217,34 @@ class ShowController {
 	async update(req, res, next) {
 		try {
 			delete req.body.id;
+
+			const showDetails = await Show.findOne({
+				where: { id: req.params.id },
+			});
+
+			if (!showDetails) {
+				return next(
+					new ApiError({
+						statusCode: 404,
+						message: 'Không tìm thấy suất chiếu',
+					})
+				);
+			}
+
+			const conflict = await checkConflict({
+				...showDetails.dataValues,
+				...req.body,
+			});
+
+			if (conflict) {
+				return next(
+					new ApiError({
+						statusCode: 400,
+						message:
+							'Phòng này đã có suất chiếu trong thời gian mà bạn đã chọn',
+					})
+				);
+			}
 
 			await Show.update(req.body, {
 				where: {
