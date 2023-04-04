@@ -31,7 +31,7 @@ class InvoiceController {
 
 			const showDetails = await Show.findOne({ where: { id: showId } });
 
-			const day = new Date(showDetails.dataValues.startAt).getDay();
+			const day = new Date(showDetails.dataValues.startAt).getDay() || 7;
 
 			const newInvoice = await Invoice.create(
 				{
@@ -143,6 +143,7 @@ class InvoiceController {
 						model: Account,
 					},
 				],
+				order: [['id', 'DESC']],
 			});
 
 			const result = [];

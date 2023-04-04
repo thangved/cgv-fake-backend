@@ -270,7 +270,7 @@ class ShowController {
 				);
 			}
 
-			const day = new Date(showDetails.dataValues.startAt).getDay();
+			const day = new Date(showDetails.dataValues.startAt).getDay() || 7;
 
 			const rows = await SeatRow.findAll({
 				where: { roomId: showDetails.dataValues.roomId },
