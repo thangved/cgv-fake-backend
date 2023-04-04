@@ -24,5 +24,6 @@ router.use('/rooms', require('./room.route'));
 router.use('/seat-rows', require('./seatrow.route'));
 router.use('/seat-types', require('./seattype.route'));
 router.use('/shows', require('./show.route'));
+router.use('/invoices', require('./invoice.route'));
 
 module.exports = router;

@@ -4,8 +4,8 @@ const Province = require('./province.model');
 
 const Cinema = sequelize.define('cinema', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	name: { type: DataTypes.STRING },
-	address: { type: DataTypes.STRING },
+	name: { type: DataTypes.STRING, allowNull: false },
+	address: { type: DataTypes.STRING, allowNull: false },
 });
 
 Cinema.belongsTo(Province, {

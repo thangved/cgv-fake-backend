@@ -6,8 +6,8 @@ const Movie = require('./movie.model');
 
 const Show = sequelize.define('show', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	startAt: { type: DataTypes.DATE },
-	endAt: { type: DataTypes.DATE },
+	startAt: { type: DataTypes.DATE, allowNull: false },
+	endAt: { type: DataTypes.DATE, allowNull: false },
 });
 
 Show.belongsTo(Language, {

@@ -9,6 +9,7 @@ const Gender = sequelize.define('gender', {
 	},
 	name: {
 		type: DataTypes.STRING,
+		allowNull: false,
 	},
 });
 

@@ -9,6 +9,7 @@ const Language = sequelize.define('language', {
 	},
 	name: {
 		type: DataTypes.STRING,
+		allowNull: false,
 	},
 });
 

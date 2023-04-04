@@ -6,6 +6,7 @@ const Room = require('@/models/room.model');
 const SeatRow = require('@/models/seatrow.model');
 const SeatType = require('@/models/seattype.model');
 const Show = require('@/models/show.model');
+const Ticket = require('@/models/ticket.model');
 const { startOfDay, endOfDay } = require('date-fns');
 const { Op } = require('sequelize');
 
@@ -283,6 +284,14 @@ class ShowController {
 
 				for (let i = 1; i <= row.quantity; i++) {
 					_seats.push({ id: i, booked: false });
+				}
+
+				const tickets = await Ticket.findAll({
+					where: { showId: req.params.id, rowId: row.id },
+				});
+
+				for (const ticket of tickets) {
+					_seats[ticket.seatId - 1].booked = true;
 				}
 
 				seats.push({

@@ -7,9 +7,9 @@ class SeatTypeController {
 	 */
 	async create(req, res, next) {
 		try {
-			const seatType = await SeatType.create(req.body);
+			const seattype = await SeatType.create(req.body);
 
-			res.send(seatType.dataValues);
+			res.send(seattype.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -20,9 +20,9 @@ class SeatTypeController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const seatTypes = await SeatType.findAll();
+			const seattypes = await SeatType.findAll();
 
-			res.send(seatTypes);
+			res.send(seattypes);
 		} catch (error) {
 			next(new ApiError());
 		}
@@ -66,11 +66,11 @@ class SeatTypeController {
 	 */
 	async getById(req, res, next) {
 		try {
-			const seatType = await SeatType.findOne({
+			const seattype = await SeatType.findOne({
 				where: { id: req.params.id },
 			});
 
-			res.send(seatType.dataValues);
+			res.send(seattype.dataValues);
 		} catch (error) {
 			next(new ApiError());
 		}

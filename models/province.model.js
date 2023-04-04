@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 const Province = sequelize.define('province', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	name: { type: DataTypes.STRING },
+	name: { type: DataTypes.STRING, allowNull: false },
 });
 
 module.exports = Province;

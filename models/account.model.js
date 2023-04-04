@@ -4,11 +4,11 @@ const Gender = require('./gender.model');
 
 const Account = sequelize.define('account', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	fullName: { type: DataTypes.STRING },
-	avatar: { type: DataTypes.STRING },
-	dateOfBirth: { type: DataTypes.DATEONLY },
-	email: { type: DataTypes.STRING, unique: true },
-	admin: { type: DataTypes.BOOLEAN, defaultValue: false },
+	fullName: { type: DataTypes.STRING, allowNull: false },
+	avatar: { type: DataTypes.STRING, allowNull: false },
+	dateOfBirth: { type: DataTypes.DATEONLY, allowNull: false },
+	email: { type: DataTypes.STRING, unique: true, allowNull: false },
+	admin: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },
 	password: { type: DataTypes.STRING, allowNull: false },
 });
 

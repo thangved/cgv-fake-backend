@@ -6,12 +6,16 @@ const Room = require('./room.model');
 
 const SeatRow = sequelize.define('seatrow', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	label: { type: DataTypes.STRING },
+	label: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		validate: { len: [1, 1] },
+	},
 	quantity: { type: DataTypes.INTEGER },
 });
 
 SeatRow.belongsTo(SeatType, {
-	foreignKey: 'seatTypeId',
+	foreignKey: 'seattypeId',
 });
 SeatRow.belongsTo(Room, {
 	foreignKey: 'roomId',

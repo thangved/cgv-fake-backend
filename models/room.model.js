@@ -5,7 +5,7 @@ const Cinema = require('./cinema.model');
 
 const Room = sequelize.define('room', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	name: { type: DataTypes.STRING },
+	name: { type: DataTypes.STRING, allowNull: false },
 });
 
 Room.belongsTo(Cinema, {

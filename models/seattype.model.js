@@ -3,15 +3,18 @@ const sequelize = require('../services/sequelize.service');
 
 const SeatType = sequelize.define('seattype', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-	name: { type: DataTypes.STRING },
-	color: { type: DataTypes.STRING },
-	price1: { type: DataTypes.BIGINT },
-	price2: { type: DataTypes.BIGINT },
-	price3: { type: DataTypes.BIGINT },
-	price4: { type: DataTypes.BIGINT },
-	price5: { type: DataTypes.BIGINT },
-	price6: { type: DataTypes.BIGINT },
-	price7: { type: DataTypes.BIGINT },
+	name: {
+		type: DataTypes.STRING,
+		allowNull: false,
+	},
+	color: { type: DataTypes.STRING, allowNull: false },
+	price1: { type: DataTypes.BIGINT, allowNull: false },
+	price2: { type: DataTypes.BIGINT, allowNull: false },
+	price3: { type: DataTypes.BIGINT, allowNull: false },
+	price4: { type: DataTypes.BIGINT, allowNull: false },
+	price5: { type: DataTypes.BIGINT, allowNull: false },
+	price6: { type: DataTypes.BIGINT, allowNull: false },
+	price7: { type: DataTypes.BIGINT, allowNull: false },
 });
 
 module.exports = SeatType;
