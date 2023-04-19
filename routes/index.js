@@ -25,5 +25,6 @@ router.use('/seat-rows', require('./seatrow.route'));
 router.use('/seat-types', require('./seattype.route'));
 router.use('/shows', require('./show.route'));
 router.use('/invoices', require('./invoice.route'));
+router.use('/dash', authMiddleware, adminMiddleware, require('./dash.route'));
 
 module.exports = router;
