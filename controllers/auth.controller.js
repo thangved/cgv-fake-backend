@@ -89,6 +89,8 @@ class AuthController {
 				accessToken: jwt.encode(newAccount.dataValues),
 			});
 		} catch (error) {
+			console.log(error);
+
 			next(new ApiError());
 		}
 	}

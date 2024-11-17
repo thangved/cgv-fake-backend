@@ -20,7 +20,16 @@ class GenderController {
 	 */
 	async getAll(req, res, next) {
 		try {
-			const genders = await Gender.findAll();
+			let genders = await Gender.findAll();
+
+			if (!genders.length) {
+				await Gender.bulkCreate([
+					{ name: 'Nam' },
+					{ name: 'Nữ' },
+					{ name: 'Khác' },
+				]);
+				genders = await Gender.findAll();
+			}
 
 			res.send(genders);
 		} catch (error) {

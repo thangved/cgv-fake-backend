@@ -5,7 +5,7 @@ const Gender = require('./gender.model');
 const Account = sequelize.define('account', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	fullName: { type: DataTypes.STRING, allowNull: false },
-	avatar: { type: DataTypes.STRING, allowNull: false },
+	avatar: { type: DataTypes.TEXT, allowNull: false },
 	dateOfBirth: { type: DataTypes.DATEONLY, allowNull: false },
 	email: { type: DataTypes.STRING, unique: true, allowNull: false },
 	admin: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: false },

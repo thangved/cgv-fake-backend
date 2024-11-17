@@ -23,6 +23,7 @@ app.use(
 );
 
 app.use('/api', indexRouter);
+app.use('/api/static/uploads', express.static(process.env.UPLOAD_DIR));
 
 // 404 - Not found
 app.use((req, res, next) => {
