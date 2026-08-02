@@ -16,7 +16,7 @@
 		"argon2": "^0.45.0",
 		"cookie-parser": "~1.4.7",
 		"cors": "^2.8.5",
-		"date-fns": "^2.29.3",
+		"date-fns": "^4.0.0",
 		"debug": "~2.6.9",
 		"dotenv": "^16.0.3",
 		"express": "~4.21.1",
